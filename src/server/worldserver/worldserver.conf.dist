@@ -2724,8 +2724,8 @@ CreatureHonor.Allow.Achievement = 0
 #		      NOTE: When honor is subtracted, the client makes the "coin" sound, the same sound as when
 #			    you spend money at a vendor. It is a client "feature" and can't be turned off in the script.
 #
-#        Default:     5 - (penalty for 5- level difference)
-#                     0 - (disabled, no penalty. Note: Negative values are considered disabled)
+#        Default:     0 - (disabled, no penalty. Note: Negative values are considered disabled)
+#                     5 - (penalty for 5- level difference)
 
 CreatureHonor.Player.Minlevel = 10
 CreatureHonor.Creature.BonusLevelDiff = 5
@@ -2750,8 +2750,8 @@ CreatureHonor.Rate.Elite = 5
 #
 # CreatureHonor Rates - Bonuses
 #
-#     These rates define bonuses applied to the base honor rate. These bonuses are accumulative so a player
-#     can get multiple extra bonuses applied depending on the NPC type (eg: A Guard who is at LevelDiffBonus)
+#     These rates define bonuses applied to the base honor rate. These bonuses are cumulative so a player
+#     can receive multiple bonuses depending on the NPC type (eg: A Guard who is at LevelDiffBonus)
 #
 #     CreatureHonor.Rate.GuardBonus
 #        Description: The amount of bonus honor added to base honor for guard NPCs
@@ -2824,7 +2824,7 @@ CreatureHonor.Require.CreaturePvP = 1
 #     be considered.
 #
 #     For example, enabling Humanoid and disabling CreatureHonor.Allow.Neutral means any neutral
-#     Humanoid killed can not reward honor.
+#     Humanoid killed will not reward honor.
 #
 #     CreatureHonor.Allow.Beast
 #        Default:     0 - (do not allow)
@@ -2875,7 +2875,9 @@ CreatureHonor.Allow.Undead = 1
 #
 #     CreatureHonor.Message.Chat.LevelReachedMessage
 #        Description: If CreatureHonor.Player.Minlevel is defined, display this message as a MOTD
-#                     Use @@ for newline and be sure to escape special characters. Empty quotes for no message ("").
+#                     Use @@ for newline and be sure to escape special characters
+#                     Use empty quotes for no message ("").
+#
 #        Default:     "@@Congratulations, you are now able to earn honor@@from NPC kills. Check your mail for rules."
 #
 
