@@ -2546,7 +2546,7 @@ CREATE TABLE `creaturehonor_message` (
   `guid` int(10) unsigned NOT NULL COMMENT 'characters.guid',
   `message_sent` int(1) unsigned DEFAULT '0' COMMENT 'Set to 0 to force message resend at login. Useful after CONF change.',
   PRIMARY KEY (`guid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tracks CreatureHonor script messages sent to characters.'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tracks CreatureHonor script messages sent to characters.';
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
