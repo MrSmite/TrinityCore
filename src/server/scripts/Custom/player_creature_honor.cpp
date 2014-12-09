@@ -352,7 +352,7 @@ class player_creature_honor : public PlayerScript
         {
             // Determines the amount of honor the target gives based on config options
 
-            int32 tempHonor = 0;
+            uint32 tempHonor = 0;
             uint32 targetLevel = target->getLevel();
             uint32 playerLevel = thePlayer->getLevel();
 
@@ -391,7 +391,7 @@ class player_creature_honor : public PlayerScript
 
                 uint32 currentHonor = thePlayer->GetHonorPoints();
 
-                if (currentHonor - tempHonor < 0)
+                if ((int32)(currentHonor - tempHonor) < 0)
                     tempHonor = -currentHonor; // will set honor to zero by removing current honor to prevent going negative
                 else
                     tempHonor = -tempHonor; // remove honor earned for this kill because of penalty
