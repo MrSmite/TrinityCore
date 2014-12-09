@@ -188,20 +188,20 @@ class player_creature_honor : public PlayerScript
         std::string creatureHonorRulesMsg;
 
         // Levels
-        uint32 playerMinLevel = 0;
-        uint32 creatureBonusLevelDiff = 0;
-        uint32 penaltyLevelDiff = 0;
+        uint32 playerMinLevel;
+        uint32 creatureBonusLevelDiff;
+        uint32 penaltyLevelDiff;
 
         // Base rates
-        uint32 rateNormal = 0;
-        uint32 rateElite = 0;
+        uint32 rateNormal;
+        uint32 rateElite;
 
         // Rate bonuses
-        uint32 rateGuardBonus = 0;
-        uint32 rateLevelDiffBonus = 0;
-        uint32 rateRareEliteBonus = 0;
-        uint32 rateRacialLeaderBonus = 0;
-        uint32 rateWorldBossBonus = 0;
+        uint32 rateGuardBonus;
+        uint32 rateLevelDiffBonus;
+        uint32 rateRareEliteBonus;
+        uint32 rateRacialLeaderBonus;
+        uint32 rateWorldBossBonus;
 
         // Honor flags
         bool allowBeast;
