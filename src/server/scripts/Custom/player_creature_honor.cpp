@@ -242,14 +242,11 @@ class player_creature_honor : public PlayerScript
                 return;
 
             uint32 mailSenderID;
-            uint32 cinematicSequenceID;
-
             MailMessageType mailType;
             std::string msgFinal;
             float x = 0.0f;
             float y = 0.0f;
             float z = 0.0f;
-            CinematicCameraEntry const* cinematicCamera;
 
             // ChrRaces.dbc contains a key to CinematicSequences.dbc which in turn contains
             //  a key to CinematicCamera.dbc. It is in CinematicCamera.dbc where we can find
@@ -259,20 +256,23 @@ class player_creature_honor : public PlayerScript
 
             if (ChrClassesEntry const* classEntry = sChrClassesStore.LookupEntry(receiver->getClass()))
             {
+                CinematicCameraEntry const* cinematicCamera;
+                uint32 cinematicSequenceID = -1; // Initialize to an invalid value so lookup will fail if no valid race / class cinematic
+                
                 if (classEntry->CinematicSequence)
                     cinematicSequenceID = classEntry->CinematicSequence;
                 else if (ChrRacesEntry const* raceEntry = sChrRacesStore.LookupEntry(receiver->getRace()))
                     cinematicSequenceID = raceEntry->CinematicSequence;
-            }
+                    
+                if (CinematicSequencesEntry const* cinematicSequence = sCinematicSequencesStore.LookupEntry(cinematicSequenceID))
+                    cinematicCamera = sCinematicCameraStore.LookupEntry(cinematicSequence->cinematicCamera);
 
-            if (CinematicSequencesEntry const* cinematicSequence = sCinematicSequencesStore.LookupEntry(cinematicSequenceID))
-                cinematicCamera = sCinematicCameraStore.LookupEntry(cinematicSequence->cinematicCamera);
-
-            if (cinematicCamera)
-            {
-                x = cinematicCamera->end_x;
-                y = cinematicCamera->end_y;
-                z = cinematicCamera->end_z;
+                if (cinematicCamera)
+                {
+                    x = cinematicCamera->end_x;
+                    y = cinematicCamera->end_y;
+                    z = cinematicCamera->end_z;
+                }                    
             }
 
             // Pick the class trainer that is located in the starting zone closest to
