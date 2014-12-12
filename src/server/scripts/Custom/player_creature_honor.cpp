@@ -153,7 +153,7 @@ class player_creature_honor : public PlayerScript
                 else
                 {
                     // DB Record didn't exist. Most likely old character created before this script was written.
-                    this->OnCreate(pl);
+                    OnCreate(pl);
                 }
 
                 // Send messages to player if needed
