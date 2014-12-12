@@ -7241,6 +7241,8 @@ bool Player::RewardHonor(Unit* victim, uint32 groupsize, int32 honor, bool pvpto
     honor_f *= sWorld->getRate(RATE_HONOR);
     // Back to int now
     honor = int32(honor_f);
+    SendPVPCreditMessage(uint32(honor), uint64(victim_guid), uint32(victim_rank));
+
     // honor - for show honor points in log
     // victim_guid - for show victim name in log
     // victim_rank [1..4]  HK: <dishonored rank>
@@ -7307,6 +7309,31 @@ void Player::SetArenaPoints(uint32 value)
     SetUInt32Value(PLAYER_FIELD_ARENA_CURRENCY, value);
     if (value)
         AddKnownCurrency(ITEM_ARENA_POINTS_ID);
+}
+
+void Player::SendPVPCreditMessage(uint32 honor, uint64 victim_guid = 0, uint32 victim_rank = 0)
+{
+    // Sends honor message to client (chat log, floating text)
+    
+    // Packet details:
+    //      honor - amount of honor to show in log
+    //      victim_guid - to show victim name in log
+    //      victim_rank [1..4]  HK: <dishonored rank>
+    //      victim_rank [5..19] HK: <alliance\horde rank>
+    //      victim_rank [0, 20+] HK: <>
+    //
+    //      NOTE: The "HK:" is also displayed as floating text
+
+    // Defaulting victim_guid and victim_rank to zero prevents the client from displaying an
+    //  empty "HK:" floating message if victim has no rank, such as an NPC (script: player_creature_honor)
+    //  or an invalid player (though the second case should NEVER happen)
+
+    WorldPacket data(SMSG_PVP_CREDIT, 4 + 8 + 4);
+    data << honor;
+    data << victim_guid;
+    data << victim_rank;
+
+    GetSession()->SendPacket(&data);
 }
 
 void Player::ModifyHonorPoints(int32 value, SQLTransaction trans)

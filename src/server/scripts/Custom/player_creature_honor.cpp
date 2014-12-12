@@ -438,17 +438,8 @@ class player_creature_honor : public PlayerScript
             thePlayer->ModifyHonorPoints(honor);
             thePlayer->ApplyModUInt32Value(PLAYER_FIELD_TODAY_CONTRIBUTION, honor, true);
 
-            // Send honor message to client (chat log). Last two parameters are victim_guid
-            // and victim_rank which would print the name and rank in the chat log and floating
-            // text. Since NPCs have no rank, setting them to zero prevents the client from
-            // displaying an empty "HK:"
-            WorldPacket data(SMSG_PVP_CREDIT, 4 + 8 + 4);
-            data << int32(honor);
-            data << uint64(0);
-            data << uint32(0);
-
-            thePlayer->GetSession()->SendPacket(&data);
-
+            // Send honor message to client
+            thePlayer->SendPVPCreditMessage(uint32(honor));
         }
 
         bool IsHonorEnabled(Player* thePlayer, Creature* target)
