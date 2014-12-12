@@ -110,7 +110,6 @@ class player_creature_honor : public PlayerScript
                 SQLTransaction trans = CharacterDatabase.BeginTransaction();
                 PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_INS_CREATUREHONOR_MESSAGE);
                 stmt->setUInt32(0, pl->GetGUIDLow());
-                stmt->setUInt32(1, 0);
                 trans->Append(stmt);
                 CharacterDatabase.CommitTransaction(trans);
             }
@@ -226,8 +225,7 @@ class player_creature_honor : public PlayerScript
             // Update DB to indicate messages have been sent
             SQLTransaction trans = CharacterDatabase.BeginTransaction();
             PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_UPD_CREATUREHONOR_MESSAGE);
-            stmt->setUInt32(0, 1);
-            stmt->setUInt32(1, pl->GetGUIDLow());
+            stmt->setUInt32(0, pl->GetGUIDLow());
             trans->Append(stmt);
             CharacterDatabase.CommitTransaction(trans);
         }
