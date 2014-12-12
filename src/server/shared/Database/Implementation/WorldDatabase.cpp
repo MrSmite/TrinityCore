@@ -94,5 +94,5 @@ void WorldDatabaseConnection::DoPrepareStatements()
 
     // Select closest NPC trainer for player based on end coords XYZ of cinematic intro camera (CinematicCamera.dbc). The ? placeholdrs are: (playerClass, cameraX, cameraX, cameraY, cameraY, cameraZ, cameraZ)
     // Note: MySQL keyword BETWEEN requires specific order: (lowVal and highVal), cannot be (highVal and LowVal)
-    PrepareStatement(WORLD_SEL_CREATUREHONOR_MAILSENDER, "SELECT entry, name, subname FROM creature_template WHERE trainer_class = ? AND gossip_menu_id > 0 AND entry IN (SELECT id FROM creature WHERE (position_x BETWEEN (? - 500) AND (? + 500)) AND (position_y BETWEEN (? - 500) AND (? + 500)) AND (position_z BETWEEN (? - 500) AND (? + 500))) LIMIT 1", CONNECTION_SYNCH);
+    PrepareStatement(WORLD_SEL_CREATUREHONOR_MAILSENDER, "SELECT entry, name, subname FROM creature_template as ct INNER JOIN creature as cr ON cr.id = ct.entry WHERE ct.trainer_class = ? AND ct.gossip_menu_id > 0 AND (cr.position_x BETWEEN (? - 500) AND (? + 500)) AND (cr.position_y BETWEEN (? - 500) AND (? + 500)) AND (cr.position_z BETWEEN (? - 500) AND (? + 500)) LIMIT 1", CONNECTION_SYNCH);
 }
