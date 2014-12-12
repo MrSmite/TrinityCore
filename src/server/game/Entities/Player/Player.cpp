@@ -7243,18 +7243,6 @@ bool Player::RewardHonor(Unit* victim, uint32 groupsize, int32 honor, bool pvpto
     honor = int32(honor_f);
     SendPVPCreditMessage(uint32(honor), uint64(victim_guid), uint32(victim_rank));
 
-    // honor - for show honor points in log
-    // victim_guid - for show victim name in log
-    // victim_rank [1..4]  HK: <dishonored rank>
-    // victim_rank [5..19] HK: <alliance\horde rank>
-    // victim_rank [0, 20+] HK: <>
-    WorldPacket data(SMSG_PVP_CREDIT, 4+8+4);
-    data << uint32(honor);
-    data << uint64(victim_guid);
-    data << uint32(victim_rank);
-
-    GetSession()->SendPacket(&data);
-
     // add honor points
     ModifyHonorPoints(honor);
 
